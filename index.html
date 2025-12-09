@@ -270,6 +270,60 @@
       margin: 0 auto;
     }
 
+    /* Bordes para las imágenes de servicios y referencias */
+    .servicios-grid .servicio-box img {
+      border: 2px solid #ccc;
+      /* borde gris */
+      border-radius: 10px;
+      /* esquinas redondeadas */
+      box-sizing: border-box;
+    }
+
+    /* Imágenes bonitas y uniformes con borde colorido */
+    .servicios-grid .servicio-box img {
+      width: 100%;
+      height: auto;
+      max-height: 200px;
+      object-fit: cover;
+      border: 2px solid #EBB12C;
+      /* borde colorido */
+      border-radius: 10px;
+      box-sizing: border-box;
+    }
+
+    /* Para celulares: 2 imágenes por fila, cuadradas, con espacio */
+    @media (max-width: 768px) {
+      .servicios-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        /* 2 por fila */
+        gap: 15px;
+        padding: 10px;
+      }
+
+      .servicio-box {
+        aspect-ratio: 1 / 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        background-color: white;
+      }
+
+      .servicio-box img {
+        width: 90%;
+        height: 90%;
+        object-fit: cover;
+      }
+
+      .texto-imagen {
+        margin-top: 5px;
+        text-align: center;
+        font-size: 0.9rem;
+      }
+    }
+
+
     /* ------------------------- */
     /* QUIÉNES SOMOS 5 IMÁGENES */
     /* ------------------------- */
@@ -327,6 +381,51 @@
       width: 140px;
     }
 
+    /* Galería quienes somos - scroll horizontal en móviles sin barra visible */
+    @media (max-width: 768px) {
+      #quienes-somos .quienes-galeria {
+        display: flex;
+        flex-wrap: nowrap;
+        /* evita que se apilen */
+        overflow-x: auto;
+        /* permite desplazamiento horizontal */
+        -webkit-overflow-scrolling: touch;
+        /* suave en iOS */
+        padding: 10px;
+        gap: 10px;
+
+        /* Ocultar scrollbar */
+        scrollbar-width: none;
+        /* Firefox */
+        -ms-overflow-style: none;
+        /* IE 10+ */
+      }
+
+      #quienes-somos .quienes-galeria::-webkit-scrollbar {
+        display: none;
+        /* Chrome, Safari y Opera */
+      }
+
+      #quienes-somos .galeria-item {
+        flex: 0 0 auto;
+        /* que no se reduzcan demasiado */
+        width: 80px;
+        /* ancho fijo */
+        text-align: center;
+      }
+
+      #quienes-somos .galeria-item img {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+      }
+
+      #quienes-somos .galeria-item .nombre {
+        font-size: 0.7em;
+        padding: 2px 4px;
+      }
+    }
+
     /* ------------------------- */
     /* QUIÉNES SOMOS 2 (3 testimonios profesionales) */
     /* ------------------------- */
@@ -380,6 +479,28 @@
       font-size: 0.95em;
       color: #333;
       line-height: 1.5;
+    }
+
+    /* Testimonios: mantener 3 en fila en celular */
+    @media (max-width: 768px) {
+      #quienes-somos-2 .servicios-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        /* menos espacio entre ellos */
+      }
+
+      #quienes-somos-2 .testimonio-box {
+        padding: 15px;
+        /* reducir tamaño interno */
+        font-size: 0.85rem;
+        /* letra más pequeña */
+      }
+
+      #quienes-somos-2 .testimonio-box img {
+        width: 60px;
+        /* imagen más pequeña */
+        height: 60px;
+      }
     }
 
     /* ------------------------- */
@@ -597,6 +718,120 @@
         font-size: 1rem;
       }
     }
+
+
+    /* Botón hamburguesa */
+    .menu-toggle {
+      display: none;
+      font-size: 28px;
+      color: white;
+      cursor: pointer;
+    }
+
+    /* Responsive */
+    @media (max-width:768px) {
+      .menu {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background-color: #EBB12C;
+        margin-top: 10px;
+      }
+
+      .menu a {
+        margin: 10px 0;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+    }
+
+    /* Tamaño muy reducido para celular */
+    @media (max-width: 768px) {
+      #intermedia-imagen .texto-derecha h2 {
+        font-size: 0.8em;
+        /* título más pequeño */
+      }
+
+      #intermedia-imagen .texto-derecha p {
+        font-size: 0.7em;
+        /* párrafo más pequeño */
+        line-height: 1.1;
+        /* altura de línea compacta */
+      }
+
+      #intermedia-imagen .texto-derecha {
+        right: 10px;
+        left: 10px;
+        max-width: unset;
+        text-align: center;
+      }
+    }
+
+    /* Footer / Contacto */
+    .footer-contacto {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+      text-align: center;
+    }
+
+    .contacto-item {
+      flex: 1 1 22%;
+      background-color: rgba(235, 177, 44, 0.9);
+      color: white;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+      transition: background-color 0.3s, transform 0.3s;
+    }
+
+    .contacto-item:hover {
+      background-color: rgba(45, 164, 160, 0.7);
+      transform: translateY(-5px);
+    }
+
+    .contacto-item h3 {
+      margin-bottom: 10px;
+      font-size: 1.1rem;
+    }
+
+    .contacto-item p {
+      font-size: 0.9rem;
+      line-height: 1.4;
+    }
+
+    .contacto-item a {
+      color: white;
+      text-decoration: none;
+    }
+
+    .contacto-item a:hover {
+      text-decoration: underline;
+    }
+
+    /* Responsive celular */
+    @media (max-width: 768px) {
+      .footer-contacto {
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .contacto-item {
+        flex: 1 1 100%;
+        padding: 15px;
+      }
+
+      .contacto-item h3 {
+        font-size: 1rem;
+      }
+
+      .contacto-item p {
+        font-size: 0.8rem;
+      }
+    }
   </style>
 </head>
 
@@ -606,11 +841,14 @@
   <header>
     <nav class="barra">
       <div class="logo-area">
-        <img src="imaguenes/Logo.png" alt="Logo">
+        <img src="imaguenes/Logo.png" alt="Logo Lazo">
         <span>Lazo</span>
       </div>
 
-      <div class="menu">
+      <!-- Botón hamburguesa -->
+      <div class="menu-toggle" onclick="toggleMenu()">&#9776;</div>
+
+      <div class="menu" id="menu">
         <a href="#inicio">Inicio</a>
         <a href="#quienes-somos-h2">Quienes somos</a>
         <a href="#servicio">Servicios</a>
@@ -822,13 +1060,6 @@
     </div>
   </section>
 
-  <!-- Sección quienes somos -->
-  <section id="quienes-somos" style="margin-top: 60px;">
-    <div class="quienes-fondo">
-      <img src="imaguenes/Patron.png">
-    </div>
-  </section>
-
   <section class="equipo-trabajo">
     <!-- Logo arriba -->
     <img src="imaguenes/Logo Principal.png" alt="Logo Lazo" class="logo-equipo">
@@ -845,6 +1076,36 @@
       La marca combina diseño, tecnología y empatía para cuidar a los animales y facilitar su reencuentro con sus
       familias.
     </p>
+  </section>
+
+  <!-- Sección quienes somos -->
+  <section id="quienes-somos">
+    <div class="quienes-fondo">
+      <img src="imaguenes/Base 2.png">
+    </div>
+
+    <div class="quienes-galeria">
+      <div class="galeria-item">
+        <img src="imaguenes/Natalia.jpg">
+        <div class="nombre">Natalia</div>
+      </div>
+      <div class="galeria-item">
+        <img src="imaguenes/Mariel.png">
+        <div class="nombre">Mariel</div>
+      </div>
+      <div class="galeria-item">
+        <img src="imaguenes/Milenka.png">
+        <div class="nombre">Milenka</div>
+      </div>
+      <div class="galeria-item">
+        <img src="imaguenes/Ritzuko.png">
+        <div class="nombre">Ritzuko</div>
+      </div>
+      <div class="galeria-item">
+        <img src="imaguenes/Ayelen.png">
+        <div class="nombre">Ayelen</div>
+      </div>
+    </div>
   </section>
 
   <!-- Testimonios -->
@@ -913,6 +1174,17 @@
       </div>
     </div>
   </footer>
+
+  <script>
+    function toggleMenu() {
+      var menu = document.getElementById("menu");
+      if (menu.style.display === "flex") {
+        menu.style.display = "none";
+      } else {
+        menu.style.display = "flex";
+      }
+    }
+  </script>
 
   <!-- Bootstrap JS -->
   <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
