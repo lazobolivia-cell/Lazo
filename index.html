@@ -150,11 +150,28 @@
     .dos-imagenes .imagen-box {
       flex: 1;
       min-width: 250px;
+      text-align: center;
+      margin: 10px;
+      /* espacio afuera del contenedor */
+      padding: 10px;
+      /* espacio dentro del contenedor */
+      box-sizing: border-box;
+      /* asegura que el padding no aumente el ancho total */
+      border-radius: 10px;
+      /* opcional: bordes redondeados del contenedor */
     }
 
     .dos-imagenes img {
       width: 100%;
       border-radius: 10px;
+      border: 3px solid white;
+      /* borde más visible */
+      box-sizing: border-box;
+      /* asegura que el borde no desborde la imagen */
+      margin: 5px;
+      /* espacio afuera de la imagen */
+      padding: 3px;
+      /* espacio dentro del borde */
     }
 
     /* ------------------------- */
@@ -323,7 +340,6 @@
       }
     }
 
-
     /* ------------------------- */
     /* QUIÉNES SOMOS 5 IMÁGENES */
     /* ------------------------- */
@@ -359,6 +375,7 @@
 
     #quienes-somos .galeria-item img {
       width: 150px;
+      /* tamaño normal en PC */
       height: 150px;
       object-fit: cover;
       border-radius: 15px;
@@ -386,45 +403,51 @@
       #quienes-somos .quienes-galeria {
         display: flex;
         flex-wrap: nowrap;
-        /* evita que se apilen */
         overflow-x: auto;
-        /* permite desplazamiento horizontal */
         -webkit-overflow-scrolling: touch;
-        /* suave en iOS */
         padding: 10px;
-        gap: 10px;
+        gap: 12px;
 
         /* Ocultar scrollbar */
         scrollbar-width: none;
-        /* Firefox */
         -ms-overflow-style: none;
-        /* IE 10+ */
       }
 
       #quienes-somos .quienes-galeria::-webkit-scrollbar {
         display: none;
-        /* Chrome, Safari y Opera */
       }
 
       #quienes-somos .galeria-item {
         flex: 0 0 auto;
-        /* que no se reduzcan demasiado */
         width: 80px;
-        /* ancho fijo */
+        /* ancho del item ajustado para que el nombre no se corte */
         text-align: center;
       }
 
       #quienes-somos .galeria-item img {
-        width: 80px;
-        height: 80px;
+        width: 60px;
+        /* imagen más pequeña */
+        height: 60px;
         object-fit: cover;
+        border-radius: 12px;
+        border: 2px solid white;
       }
 
       #quienes-somos .galeria-item .nombre {
-        font-size: 0.7em;
-        padding: 2px 4px;
+        font-size: 0.65em;
+        /* legible */
+        padding: 3px 4px;
+        width: 100%;
+        /* ocupa todo el ancho del item */
+        box-sizing: border-box;
+        white-space: nowrap;
+        /* evita que se divida en varias líneas */
+        overflow: hidden;
+        text-overflow: ellipsis;
+        /* si es muy largo, agrega "..." */
       }
     }
+
 
     /* ------------------------- */
     /* QUIÉNES SOMOS 2 (3 testimonios profesionales) */
@@ -1078,7 +1101,7 @@
     </p>
   </section>
 
-   <!-- Patrones -->
+  <!-- Patrones -->
   <section class="titulo-seccion">
     <h2>Equipo de Trabajo</h2>
   </section>
