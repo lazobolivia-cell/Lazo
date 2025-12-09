@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lazo</title>
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+
+  <style>
+    /* ------------------------- */
+    /* ESTILOS GENERALES */
+    /* ------------------------- */
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    /* ------------------------- */
+    /* MENÚ NAVEGACIÓN MEJORADO */
+    /* ------------------------- */
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background-color: #EBB12C;
+      z-index: 10;
+    }
+
+    .barra {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 40px;
+      flex-wrap: wrap;
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      color: white;
+      font-weight: bold;
+      font-size: 22px;
+    }
+
+    .logo-area img {
+      height: 60px;
+    }
+
+    .menu {
+      display: flex;
+      align-items: center;
+      gap: 25px;
+      flex-wrap: wrap;
+    }
+
+    .menu a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 18px;
+      transition: color 0.3s;
+    }
+
+    .menu a:hover {
+      color: #fff;
+    }
+
+    /* ------------------------- */
+    /* SECCIÓN INICIO */
+    /* ------------------------- */
+    .seccion {
+      position: relative;
+      width: 100%;
+      height: 600px;
+    }
+
+    .seccion img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .texto-izquierda {
+      position: absolute;
+      left: 60px;
+      top: 50%;
+      transform: translateY(-50%);
+      max-width: 500px;
+      color: white;
+      text-align: center;
+    }
+
+    .texto-izquierda h1 {
+      font-size: 3em;
+      margin: 0 0 20px 0;
+    }
+
+    .texto-izquierda p {
+      font-size: 1.2em;
+      margin: 0 0 30px 0;
+    }
+
+    .texto-izquierda .boton {
+      display: inline-block;
+      padding: 12px 25px;
+      background-color: #EBB12C;
+      color: white;
+      font-weight: bold;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+
+    .texto-izquierda .boton:hover {
+      background-color: #d9a60c;
+    }
+
+    /* ------------------------- */
+    /* TÍTULOS CENTRADOS */
+    /* ------------------------- */
+    .titulo-seccion {
+      text-align: center;
+      margin: 60px 0 20px 0;
+    }
+
+    .titulo-seccion h2 {
+      font-size: 2em;
+      color: #333;
+    }
+
+    /* ------------------------- */
+    /* MODELOS (2 imágenes) */
+    /* ------------------------- */
+    .dos-imagenes {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      max-width: 1200px;
+      margin: 20px auto 60px auto;
+      flex-wrap: wrap;
+      text-align: center;
+    }
+
+    .dos-imagenes .imagen-box {
+      flex: 1;
+      min-width: 250px;
+    }
+
+    .dos-imagenes img {
+      width: 100%;
+      border-radius: 10px;
+    }
+
+    /* ------------------------- */
+    /* IMAGEN INTERMEDIA */
+    /* ------------------------- */
+    #intermedia-imagen {
+      position: relative;
+      height: auto;
+      margin: 50px 0;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    #intermedia-imagen img {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+    }
+
+    #intermedia-imagen .texto-derecha {
+      position: absolute;
+      top: 50%;
+      right: 80px;
+      transform: translateY(-50%);
+      color: white;
+      font-size: 1.3em;
+      max-width: 800px;
+      text-align: right;
+    }
+
+    /* ------------------------- */
+    /* SERVICIOS (cuadros con texto sobre imagen) */
+    /* ------------------------- */
+    .servicios-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .filas-tres {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .servicio-box {
+      position: relative;
+      border-radius: 15px;
+      overflow: hidden;
+    }
+
+    .servicio-box img {
+      width: 100%;
+      height: 230px;
+      object-fit: cover;
+      filter: brightness(1.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .servicio-box:hover img {
+      transform: scale(1.08);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .servicio-box::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.20);
+    }
+
+    .servicio-box .texto-imagen {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #EBB12C;
+      color: white;
+      font-weight: bold;
+      border-radius: 30px;
+      padding: 10px 25px;
+      text-align: center;
+      pointer-events: none;
+    }
+
+    .equipo-trabajo {
+      text-align: center;
+      padding: 60px 20px;
+      background-color: #f8f8f8;
+      border-radius: 15px;
+      max-width: 1000px;
+      margin: 50px auto;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .equipo-trabajo .logo-equipo {
+      width: 120px;
+      height: auto;
+      margin-bottom: 20px;
+    }
+
+    .equipo-trabajo h2 {
+      font-size: 2.5rem;
+      color: #EBB12C;
+      margin-bottom: 20px;
+    }
+
+    .equipo-trabajo p {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: #333;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    /* ------------------------- */
+    /* QUIÉNES SOMOS 5 IMÁGENES */
+    /* ------------------------- */
+    #quienes-somos {
+      position: relative;
+      width: 100%;
+      overflow: visible;
+      margin-bottom: 20px;
+    }
+
+    #quienes-somos .quienes-fondo img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    #quienes-somos .quienes-galeria {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      gap: 25px;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #quienes-somos .galeria-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    #quienes-somos .galeria-item img {
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 15px;
+      border: 3px solid white;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+      transition: transform 0.3s;
+    }
+
+    #quienes-somos .galeria-item img:hover {
+      transform: scale(1.1);
+    }
+
+    #quienes-somos .nombre {
+      margin-top: 10px;
+      padding: 5px 10px;
+      background-color: #EBB12C;
+      color: white;
+      border-radius: 5px;
+      text-align: center;
+      width: 140px;
+    }
+
+    /* ------------------------- */
+    /* QUIÉNES SOMOS 2 (3 testimonios profesionales) */
+    /* ------------------------- */
+    #quienes-somos-2 {
+      position: relative;
+      width: 100%;
+      overflow: visible;
+      margin-top: 40px;
+      margin-bottom: 60px;
+      padding: 0 20px;
+    }
+
+    #quienes-somos-2 .servicios-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    #quienes-somos-2 .testimonio-box {
+      background-color: #fff;
+      border-radius: 15px;
+      padding: 25px 20px;
+      text-align: center;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    #quienes-somos-2 .testimonio-box:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    #quienes-somos-2 .testimonio-box img {
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 3px solid #EBB12C;
+      margin-bottom: 15px;
+    }
+
+    #quienes-somos-2 .testimonio-box h3 {
+      margin: 10px 0;
+      font-size: 1.3em;
+      color: #EBB12C;
+    }
+
+    #quienes-somos-2 .testimonio-box p {
+      font-size: 0.95em;
+      color: #333;
+      line-height: 1.5;
+    }
+
+    /* ------------------------- */
+    /* CONTACTO */
+    /* ------------------------- */
+    #contacto {
+      padding: 50px 20px;
+      background-color: #f0f0f0;
+      color: #333;
+      text-align: center;
+    }
+
+    #contacto form {
+      max-width: 400px;
+      margin: auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    #contacto input,
+    #contacto textarea,
+    #contacto button {
+      margin-bottom: 15px;
+      padding: 10px;
+    }
+
+    #contacto button {
+      background-color: #2DA4A0;
+      color: white;
+      border: none;
+    }
+
+    #contacto button:hover {
+      background-color: #1b7a77;
+    }
+
+    /* ------------------------- */
+    /* RESPONSIVE NAV */
+    /* ------------------------- */
+    @media(max-width:768px) {
+      .barra {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .menu {
+        flex-direction: column;
+        width: 100%;
+        margin-top: 10px;
+      }
+
+      .menu a {
+        margin: 10px 0;
+      }
+
+      #quienes-somos-2 .servicios-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .texto-izquierda {
+        left: 50%;
+        transform: translate(-50%, -50%);
+        max-width: 90%;
+        text-align: center;
+      }
+
+      .texto-izquierda h1 {
+        font-size: 2em;
+      }
+
+      .texto-izquierda p {
+        font-size: 1em;
+      }
+    }
+
+    #seccion-destacada {
+      width: 100%;
+      padding: 80px 20px;
+      text-align: center;
+      background-color: #f8f8f8;
+      /* Color de fondo */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-sizing: border-box;
+    }
+
+    #seccion-destacada .contenido-destacado {
+      max-width: 700px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    #seccion-destacada .logo-destacado {
+      width: 120px;
+      /* Tamaño del logo */
+      height: auto;
+      margin-bottom: 25px;
+    }
+
+    #seccion-destacada .subtitulo-destacado {
+      font-size: 2rem;
+      margin-bottom: 15px;
+      color: #000;
+      /* Texto negro */
+    }
+
+    #seccion-destacada .texto-destacado {
+      font-size: 1.2rem;
+      color: #000;
+      /* Texto negro */
+      line-height: 1.5;
+    }
+
+    /* Responsive */
+    @media(max-width:768px) {
+      #seccion-destacada {
+        padding: 60px 15px;
+      }
+
+      #seccion-destacada .logo-destacado {
+        width: 90px;
+        margin-bottom: 15px;
+      }
+
+      #seccion-destacada .subtitulo-destacado {
+        font-size: 1.5rem;
+      }
+
+      #seccion-destacada .texto-destacado {
+        font-size: 1rem;
+      }
+    }
+
+    /* Footer */
+    #footer {
+      background-image: url('imaguenes/Base\ 0.png');
+      /* imagen de fondo */
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      color: white;
+      padding: 80px 20px;
+      text-align: center;
+      font-family: Arial, sans-serif;
+      position: relative;
+    }
+
+    .footer-contenido {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .footer-logo img {
+      width: 120px;
+      height: auto;
+      margin-bottom: 20px;
+    }
+
+    .footer-texto p {
+      font-size: 1.2rem;
+      line-height: 1.6;
+      max-width: 700px;
+      margin: 0 auto 40px auto;
+    }
+
+    .footer-contacto {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      text-align: center;
+    }
+
+    .contacto-item {
+      flex: 1 1 220px;
+      background-color: rgba(235, 177, 44, 0.9);
+      /* color inicial */
+      color: white;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+      transition: background-color 0.3s, transform 0.3s;
+      cursor: pointer;
+    }
+
+    .contacto-item:hover {
+      background-color: rgba(45, 164, 160, 0.7);
+      /* cambia al semi transparente */
+      transform: translateY(-5px);
+      /* efecto flotante */
+    }
+
+    .contacto-item h3 {
+      margin-bottom: 10px;
+    }
+
+    .contacto-item a {
+      color: white;
+      text-decoration: none;
+    }
+
+    .contacto-item a:hover {
+      text-decoration: underline;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .footer-contacto {
+        flex-direction: column;
+      }
+
+      .footer-texto p {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Menú -->
+  <header>
+    <nav class="barra">
+      <div class="logo-area">
+        <img src="imaguenes/Logo.png" alt="Logo">
+        <span>Lazo</span>
+      </div>
+
+      <div class="menu">
+        <a href="#inicio">Inicio</a>
+        <a href="#quienes-somos-h2">Quienes somos</a>
+        <a href="#servicio">Servicios</a>
+        <a href="#referencias">Referencias</a>
+        <a href="#footer">Contactos</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- SECCIÓN INICIO -->
+  <section id="inicio" class="seccion">
+    <img src="imaguenes/Portada 1.png">
+    <div class="texto-izquierda">
+      <h1>Crea un lazo seguro entre vos y tu mejor amigo</h1>
+      <p>Escanea su QR y accede a todos sus datos en segundos</p>
+      <a href="https://wa.link/sba43v" class="boton">¡Tu mascota! Merece lo mejor contáctanos</a>
+    </div>
+  </section>
+
+  <!-- Modelos -->
+  <section id="modelos" class="titulo-seccion">
+    <h2>Modelos</h2>
+  </section>
+
+  <!-- Etiqueta -->
+  <section class="dos-imagenes">
+    <div class="imagen-box">
+      <img src="imaguenes/Etiqueta.jpeg">
+      <h3>Collar con etiqueta QR integrada.</h3>
+      <p>Diseño liviano y resistente, con el código QR cosido directamente al tejido.</p>
+      <p>Detalles visuales: reguladores, cierre de presión, patrón serigrafiado. </p>
+    </div>
+
+    <!-- Placa -->
+    <div class="imagen-box">
+      <img src="imaguenes/Placa.jpeg">
+      <h3>Collar con placa QR personalizada.</h3>
+      <p>Placa grabada en acrílico o metal, con diseño personalizable y QR único. </p>
+      <p>Detalles visuales: colores, patrones, resistencia y personalización. </p>
+    </div>
+  </section>
+
+  <!-- Personaliza el estilo de tu mascota -->
+  <section id="intermedia-imagen">
+    <img src="imaguenes/Base 1.png">
+    <div class="texto-derecha">
+      <h2>Personaliza el estilo de tu Lazo</h2>
+      <p>Personaliza tu estilo con Lazo y haz que tu mascota luzca única. Este collar con código QR no solo ofrece
+        seguridad, al contener la información de tu mascota y de su dueño, sino que también se adapta completamente a tu
+        gusto. Elige colores, diseños y detalles que reflejen la personalidad de tu compañero, creando un accesorio que
+        sea tan especial y original como él.</p>
+    </div>
+  </section>
+
+  <!-- SECCIÓN SERVICIOS 1 -->
+  <section class="titulo-seccion">
+    <h2>Tamaños disponibles</h2>
+  </section>
+
+  <section id="servicio">
+    <div class="servicios-grid filas-tres">
+      <div class="servicio-box">
+        <img src="imaguenes/Pqueño p.jpg">
+        <div class="texto-imagen">Pequeño</div>
+      </div>
+      <div class="servicio-box">
+        <img src="imaguenes/Mediano p.jpg">
+        <div class="texto-imagen">Mediano</div>
+      </div>
+      <div class="servicio-box">
+        <img src="imaguenes/Grande p (2).jpg">
+        <div class="texto-imagen">Grande</div>
+      </div>
+      <div class="servicio-box">
+        <img src="imaguenes/Gato p.jpg">
+        <div class="texto-imagen">Pequeño</div>
+      </div>
+      <div class="servicio-box">
+        <img src="imaguenes/Gato m.jpg">
+        <div class="texto-imagen">Mediano</div>
+      </div>
+      <div class="servicio-box">
+        <img src="imaguenes/Gato g.jpg">
+        <div class="texto-imagen">Grande</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECCIÓN SERVICIOS 2 -->
+  <!-- Colores  -->
+  <section class="titulo-seccion">
+    <h2>Colores</h2>
+  </section>
+
+  <section id="servicio-2">
+    <div class="servicios-grid">
+      <div class="servicio-box"><img src="imaguenes/Amarillo.jpg">
+        <div class="texto-imagen">Amarillo</div>
+      </div>
+      <div class="servicio-box"><img src="imaguenes/Naranja claro.jpg">
+        <div class="texto-imagen">Naranja claro</div>
+      </div>
+      <div class="servicio-box"><img src="imaguenes/Naranja oscuro.jpg">
+        <div class="texto-imagen">Naranja oscuro</div>
+      </div>
+      <div class="servicio-box"><img src="imaguenes/Rojo.jpg">
+        <div class="texto-imagen">Rojo</div>
+      </div>
+      <div class="servicio-box"><img src="imaguenes/Futzia.jpg">
+        <div class="texto-imagen">Fucsia</div>
+      </div>
+      <div class="servicio-box"><img src="imaguenes/Lila claro.jpg">
+        <div class="texto-imagen">Lila claro</div>
+      </div>
+      <div class="servicio-box"><img src="imaguenes/Morado.jpg">
+        <div class="texto-imagen">Verde</div>
+      </div>
+      <div class="servicio-box"><img src="imaguenes/Azul.jpg">
+        <div class="texto-imagen">Azul</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Colores Pasteles -->
+  <section class="titulo-seccion">
+    <h2>Colores Pasteles</h2>
+  </section>
+
+  <section id="servicio-2">
+    <div class="servicios-grid">
+      <div class="servicio-box"><img src="imaguenes/Celeste pastel.jpg">
+        <div class="texto-imagen">Celeste</div>
+      </div>
+      <div class="servicio-box"><img src="imaguenes/Lila pastel.jpg">
+        <div class="texto-imagen">Lila</div>
+      </div>
+      <div class="servicio-box"><img src="imaguenes/Amarillo pastel.jpg">
+        <div class="texto-imagen">Amarillo</div>
+      </div>
+      <div class="servicio-box"><img src="imaguenes/Verde pastel.jpg">
+        <div class="texto-imagen">Verde</div>
+      </div>
+      <div class="servicio-box"><img src="imaguenes/Naranja pastel.jpg">
+        <div class="texto-imagen">Naranja</div>
+      </div>
+      <div class="servicio-box"><img src="imaguenes/Verde agua.png">
+        <div class="texto-imagen">Verde Agua</div>
+      </div>
+      <div class="servicio-box"><img src="imaguenes/Rosa pastel.jpg">
+        <div class="texto-imagen">Rosa</div>
+      </div>
+      <div class="servicio-box"><img src="imaguenes/Rojo pastel.png">
+        <div class="texto-imagen">Rojo</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Patrones -->
+  <section class="titulo-seccion">
+    <h2>Patrones</h2>
+  </section>
+
+  <section id="servicio-2">
+    <div class="servicios-grid">
+      <div class="servicio-box"><img src="imaguenes/Huesitos.jpg">
+        <div class="texto-imagen">Huesitos</div>
+      </div>
+      <div class="servicio-box"><img src="imaguenes/Patitas.jpg">
+        <div class="texto-imagen">Patitas</div>
+      </div>
+      <div class="servicio-box"><img src="imaguenes/Caritas.jpg">
+        <div class="texto-imagen">Caritas</div>
+      </div>
+      <div class="servicio-box"><img src="imaguenes/Tropical.jpg">
+        <div class="texto-imagen">Tropical</div>
+      </div>
+      <div class="servicio-box"><img src="imaguenes/Geométrico.jpg">
+        <div class="texto-imagen">Geométrico</div>
+      </div>
+      <div class="servicio-box"><img src="imaguenes/Pétalos.jpg">
+        <div class="texto-imagen">Pétalos</div>
+      </div>
+      <div class="servicio-box"><img src="imaguenes/Olas.jpg">
+        <div class="texto-imagen">Olas</div>
+      </div>
+      <div class="servicio-box"><img src="imaguenes/Flores.jpg">
+        <div class="texto-imagen">Flores</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="titulo-seccion">
+    <h2>Referencias</h2>
+  </section>
+
+  <!-- Contenedor de referencias -->
+  <section id="referencias">
+    <div class="servicios-grid filas-tres">
+      <div class="servicio-box">
+        <img src="imaguenes/rubi.jpeg" alt="Pequeño">
+      </div>
+      <div class="servicio-box">
+        <img src="imaguenes/qr.JPG" alt="Mediano">
+      </div>
+      <div class="servicio-box">
+        <img src="imaguenes/rit.png" alt="Grande">
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Sección quienes somos -->
+  <section id="quienes-somos" style="margin-top: 60px;">
+    <div class="quienes-fondo">
+      <img src="imaguenes/Patron.png">
+    </div>
+  </section>
+
+  <section class="equipo-trabajo">
+    <!-- Logo arriba -->
+    <img src="imaguenes/Logo Principal.png" alt="Logo Lazo" class="logo-equipo">
+
+    <!-- Título -->
+    <h2 id="quienes-somos-h2">Quienes Somos</h2>
+
+    <!-- Párrafo descriptivo -->
+    <p>
+      Lazo es una marca que ofrece soluciones inteligentes para la identificación y protección de mascotas mediante
+      collares o placas personalizadas con códigos QR.
+      Cada código permite acceder a un perfil digital del animal, donde se puede visualizar su información básica, datos
+      de contacto del dueño y estado de salud.
+      La marca combina diseño, tecnología y empatía para cuidar a los animales y facilitar su reencuentro con sus
+      familias.
+    </p>
+  </section>
+
+  <!-- Testimonios -->
+  <section class="titulo-seccion">
+    <h2>Testimonios</h2>
+  </section>
+
+  <section id="quienes-somos-2">
+    <div class="servicios-grid">
+      <div class="testimonio-box">
+        <img src="imaguenes/Testimonio.png" alt="Valentina">
+        <h3>Valentina</h3>
+        <p>El collar con QR fue la mejor compra que hice para mi perro. Una vez se escapó y gracias al código lo
+          encontramos en minutos. Me dio muchísima tranquilidad. ¡Lazo es un salvavidas!</p>
+      </div>
+      <div class="testimonio-box">
+        <img src="imaguenes/Testimonio.png" alt="Sofía">
+        <h3>Sofía</h3>
+        <p>Me encantó lo fácil que es escanear el código y ver toda la información de mi gata. El diseño es precioso y
+          la calidad del collar es excelente.</p>
+      </div>
+      <div class="testimonio-box">
+        <img src="imaguenes/Testimonio.png" alt="Camila">
+        <h3>Camila</h3>
+        <p>Lo que más me gustó fue poder elegir el modelo y personalizarlo. Se nota que está hecho con cariño y
+          dedicación. Mi perrita se ve hermosa con su collar. ¡Muchas gracias Lazo!</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer id="footer">
+    <div class="footer-contenido">
+      <!-- Logo -->
+      <div class="footer-logo">
+        <img src="imaguenes/Logo secundario.png" alt="Logo Lazo">
+      </div>
+
+      <!-- Texto principal -->
+      <div class="footer-texto">
+        <p>Lazo conecta a tu mascota con seguridad y estilo. Collares y placas con QR personalizable para tener toda la
+          información al alcance de tu mano.</p>
+      </div>
+
+      <!-- Contacto -->
+      <div class="footer-contacto">
+        <div class="contacto-item">
+          <h3>Horario de atención</h3>
+          <p>Lunes a Viernes 08:00 - 19:00</p>
+          <p>Sábado 08:00 - 13:00</p>
+        </div>
+        <div class="contacto-item">
+          <h3>WhatsApp</h3>
+          <p><a href="https://wa.link/sba43v" target="_blank">+591 75699724</a></p>
+        </div>
+        <div class="contacto-item">
+          <h3>Email</h3>
+          <p><a href="https://mail.google.com/mail/?view=cm&fs=1&to=lazo.bolivia@gmail.com" target="_blank">
+              lazo.bolivia@gmail.com
+            </a></p>
+        </div>
+        <div class="contacto-item">
+          <h3>Instagram</h3>
+          <p><a href="https://www.instagram.com/lazo.bo/" target="_blank">@lazo.bo</a></p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+
+
+
+
+  <!-- Bootstrap JS -->
+  <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
